@@ -9,6 +9,8 @@ path {
 </style>
 <body>
   <h1>Hello World!</h1>
+
+  <div id = "cpw_text"> </div>
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
 
@@ -50,9 +52,17 @@ d3.json("/cpw.json", function(error, root) {
       .attr("d", arc)
       .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
       .on("click", click)
+      .on("mouseover", mouseover)
     .append("title")
       .text(function(d) { return d.name + "\n" + formatNumber(d.value); });
+   
 });
+
+function mouseover(d){
+   console.log("hello");
+   console.log(d);
+   d3.select("h1")[0][0].innerHTML = d.name + "\n" + formatNumber(d.value);
+}
 
 function click(d) {
   svg.transition()
